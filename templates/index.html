@@ -1,0 +1,143 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heart Disease Prediction</title>
+<style>
+    /* static/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 400px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  form label {
+    display: block;
+    margin-top: 10px;
+    color: #555;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background: #28a745;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #218838;
+  }
+  
+  #result {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Heart Disease Prediction</h1>
+    <form id="predictionForm">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+
+      <label for="Sex_male">Sex (Male = 1, Female = 0):</label>
+      <input type="number" id="Sex_male" name="Sex_male" required min="0" max="1">
+
+      <label for="cigsPerDay">Cigarettes Per Day:</label>
+      <input type="number" id="cigsPerDay" name="cigsPerDay" required>
+
+      <label for="totChol">Total Cholesterol:</label>
+      <input type="number" id="totChol" name="totChol" required>
+
+      <label for="sysBP">Systolic Blood Pressure:</label>
+      <input type="number" id="sysBP" name="sysBP" required>
+
+      <label for="glucose">Glucose Level:</label>
+      <input type="number" id="glucose" name="glucose" required>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    <div id="result">
+      <!-- The prediction result will be shown here -->
+    </div>
+  </div>
+  <script>
+    // static/js/script.js
+document.getElementById('predictionForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+  
+    // Collect input values
+    const age = document.getElementById('age').value;
+    const Sex_male = document.getElementById('Sex_male').value;
+    const cigsPerDay = document.getElementById('cigsPerDay').value;
+    const totChol = document.getElementById('totChol').value;
+    const sysBP = document.getElementById('sysBP').value;
+    const glucose = document.getElementById('glucose').value;
+  
+    // Prepare the data as JSON
+    const data = {
+      age: age,
+      Sex_male: Sex_male,
+      cigsPerDay: cigsPerDay,
+      totChol: totChol,
+      sysBP: sysBP,
+      glucose: glucose
+    };
+  
+    // Send POST request to the backend
+    fetch('/predict', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      // Display the result in the #result div
+      document.getElementById('result').innerText = 
+        "Predicted TenYearCHD (0 = No Heart Disease, 1 = Heart Disease): " + result.TenYearCHD;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('result').innerText = "An error occurred. Please try again.";
+    });
+  });
+  
+  </script>
+</body>
+</html>
