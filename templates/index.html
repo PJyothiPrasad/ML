@@ -1,143 +1,299 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Heart Disease Prediction</title>
-<style>
-    /* static/css/style.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    width: 400px;
-    margin: 50px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  form label {
-    display: block;
-    margin-top: 10px;
-    color: #555;
-  }
-  
-  form input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background: #28a745;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background: #218838;
-  }
-  
-  #result {
-    margin-top: 20px;
-    font-size: 18px;
-    text-align: center;
-  }
-  
-</style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Google-inspired styles */
+    :root {
+      --google-blue: #4285f4;
+      --google-red: #ea4335;
+      --google-yellow: #fbbc05;
+      --google-green: #34a853;
+      --google-gray: #5f6368;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #202124;
+      line-height: 1.6;
+    }
+
+    .google-font {
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    /* Navigation */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 8px 24px;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--google-gray);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--google-gray);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 24px;
+      transition: background 0.2s;
+    }
+
+    .nav-links a:hover {
+      background: #f1f3f4;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 120px 24px 80px;
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      color: #202124;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--google-gray);
+      margin-bottom: 32px;
+    }
+
+    /* Form Container */
+    .container {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form label {
+      display: block;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    form input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: var(--google-green);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background: #f8f9fa;
+      padding: 48px 24px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .social-links {
+      margin-top: 24px;
+    }
+
+    .social-links a {
+      color: var(--google-gray);
+      margin: 0 12px;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      color: var(--google-blue);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Heart Disease Prediction</h1>
-    <form id="predictionForm">
-      <label for="age">Age:</label>
-      <input type="number" id="age" name="age" required>
-
-      <label for="Sex_male">Sex (Male = 1, Female = 0):</label>
-      <input type="number" id="Sex_male" name="Sex_male" required min="0" max="1">
-
-      <label for="cigsPerDay">Cigarettes Per Day:</label>
-      <input type="number" id="cigsPerDay" name="cigsPerDay" required>
-
-      <label for="totChol">Total Cholesterol:</label>
-      <input type="number" id="totChol" name="totChol" required>
-
-      <label for="sysBP">Systolic Blood Pressure:</label>
-      <input type="number" id="sysBP" name="sysBP" required>
-
-      <label for="glucose">Glucose Level:</label>
-      <input type="number" id="glucose" name="glucose" required>
-
-      <button type="submit">Predict</button>
-    </form>
-
-    <div id="result">
-      <!-- The prediction result will be shown here -->
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-content">
+      <a href="#" class="nav-logo">MyApp</a>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
     </div>
-  </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Heart Disease Prediction</h1>
+      <p>Enter your health details below to predict the risk of heart disease.</p>
+    </div>
+  </section>
+
+  <!-- Prediction Form Section -->
+  <section>
+    <div class="container">
+      <h2>Prediction Form</h2>
+      <form id="predictionForm">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="Sex_male">Sex (Male = 1, Female = 0):</label>
+        <input type="number" id="Sex_male" name="Sex_male" required min="0" max="1">
+
+        <label for="cigsPerDay">Cigarettes Per Day:</label>
+        <input type="number" id="cigsPerDay" name="cigsPerDay" required>
+
+        <label for="totChol">Total Cholesterol:</label>
+        <input type="number" id="totChol" name="totChol" required>
+
+        <label for="sysBP">Systolic Blood Pressure:</label>
+        <input type="number" id="sysBP" name="sysBP" required>
+
+        <label for="glucose">Glucose Level:</label>
+        <input type="number" id="glucose" name="glucose" required>
+
+        <button type="submit">Predict</button>
+      </form>
+      <div id="result">
+        <!-- The prediction result will be shown here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MyApp. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#">&#x1F426;</a>
+      <a href="#">&#x1F4F1;</a>
+      <a href="#">&#x1F4BB;</a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
   <script>
-    // static/js/script.js
-document.getElementById('predictionForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-  
-    // Collect input values
-    const age = document.getElementById('age').value;
-    const Sex_male = document.getElementById('Sex_male').value;
-    const cigsPerDay = document.getElementById('cigsPerDay').value;
-    const totChol = document.getElementById('totChol').value;
-    const sysBP = document.getElementById('sysBP').value;
-    const glucose = document.getElementById('glucose').value;
-  
-    // Prepare the data as JSON
-    const data = {
-      age: age,
-      Sex_male: Sex_male,
-      cigsPerDay: cigsPerDay,
-      totChol: totChol,
-      sysBP: sysBP,
-      glucose: glucose
-    };
-  
-    // Send POST request to the backend
-    fetch('/predict', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-      // Display the result in the #result div
-      document.getElementById('result').innerText = 
-        "Predicted TenYearCHD (0 = No Heart Disease, 1 = Heart Disease): " + result.TenYearCHD;
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      document.getElementById('result').innerText = "An error occurred. Please try again.";
+    document.getElementById('predictionForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+    
+      // Collect input values
+      const age = document.getElementById('age').value;
+      const Sex_male = document.getElementById('Sex_male').value;
+      const cigsPerDay = document.getElementById('cigsPerDay').value;
+      const totChol = document.getElementById('totChol').value;
+      const sysBP = document.getElementById('sysBP').value;
+      const glucose = document.getElementById('glucose').value;
+    
+      // Prepare the data as JSON
+      const data = {
+        age: age,
+        Sex_male: Sex_male,
+        cigsPerDay: cigsPerDay,
+        totChol: totChol,
+        sysBP: sysBP,
+        glucose: glucose
+      };
+    
+      // Send POST request to the backend
+      fetch('/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        // Display the result in the #result div
+        document.getElementById('result').innerText = 
+          "Predicted TenYearCHD (0 = No Heart Disease, 1 = Heart Disease): " + result.TenYearCHD;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('result').innerText = "An error occurred. Please try again.";
+      });
     });
-  });
-  
   </script>
 </body>
 </html>
